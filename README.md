@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="logo">
+    <img src="ansa-logo.png" alt="ANSA Logo">
+    <span>ANSA</span>
+</div>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Cosmos — The Ultimate Space Explorer</title>
 
