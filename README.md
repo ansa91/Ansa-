@@ -1,6 +1,2190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cosmos — The Ultimate Space Explorer</title>
+
+<meta name="description"
+content="Explore the universe, Solar System, planets, stars, galaxies, black holes, astronauts, missions and the future of space exploration.">
+
+<style>
+/* =========================================================
+   COSMOS SPACE WEBSITE
+   Single-file HTML / CSS / JavaScript
+   ========================================================= */
+
+:root {
+    --bg: #02030a;
+    --bg2: #070b18;
+    --panel: rgba(12, 18, 40, 0.78);
+    --panel2: rgba(20, 28, 58, 0.7);
+    --text: #f5f7ff;
+    --muted: #a9b4d0;
+    --line: rgba(255,255,255,.1);
+    --accent: #7c8cff;
+    --accent2: #55d6ff;
+    --success: #6ef3b2;
+    --danger: #ff6b9d;
+    --max: 1200px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+html {
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(86,75,255,.16), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(0,210,255,.10), transparent 25%),
+        var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+body.light {
+    --bg: #eef3ff;
+    --bg2: #ffffff;
+    --panel: rgba(255,255,255,.78);
+    --panel2: rgba(245,247,255,.9);
+    --text: #10162d;
+    --muted: #526078;
+    --line: rgba(0,0,0,.1);
+}
+
+/* STARFIELD */
+#stars,
+#stars2 {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+}
+
+#stars {
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,.75) 1px, transparent 1px);
+    background-size: 90px 90px;
+    animation: starsMove 90s linear infinite;
+}
+
+#stars2 {
+    background-image:
+        radial-gradient(circle, rgba(130,180,255,.5) 1px, transparent 1px);
+    background-size: 150px 150px;
+    animation: starsMove 150s linear infinite reverse;
+    opacity: .45;
+}
+
+@keyframes starsMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(180px); }
+}
+
+/* NAVIGATION */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    background: rgba(2,3,10,.65);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--line);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    font-size: 28px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    opacity: .85;
+    transition: .25s;
+}
+
+nav a:hover {
+    color: var(--accent2);
+    opacity: 1;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--text);
+    cursor: pointer;
+}
+
+/* MOBILE MENU */
+.menu-btn {
+    display: none;
+}
+
+/* HERO */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 20px 70px;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 1000px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid rgba(124,140,255,.35);
+    background: rgba(124,140,255,.09);
+    border-radius: 999px;
+    color: #aeb8ff;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(52px, 9vw, 115px);
+    line-height: .95;
+    letter-spacing: -5px;
+    margin-bottom: 28px;
+    background: linear-gradient(100deg,#fff,#9ba9ff,#65e2ff);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    max-width: 760px;
+    margin: auto;
+    color: var(--muted);
+    font-size: clamp(17px,2vw,21px);
+}
+
+.hero-actions {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 13px 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 800;
+    border: 1px solid var(--line);
+    transition: .25s;
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: white;
+    background: linear-gradient(135deg,#6475ff,#3bc9ff);
+    box-shadow: 0 15px 40px rgba(65,105,255,.22);
+}
+
+.btn-secondary {
+    color: var(--text);
+    background: var(--panel);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+/* FLOATING ORBIT */
+.orbit {
+    width: 260px;
+    height: 260px;
+    border: 1px solid rgba(100,150,255,.22);
+    border-radius: 50%;
+    position: absolute;
+    right: 5%;
+    bottom: 8%;
+    opacity: .7;
+}
+
+.orbit::before {
+    content: "🌍";
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    display: grid;
+    place-items: center;
+    font-size: 36px;
+    left: -27px;
+    top: 102px;
+    animation: orbitPlanet 9s linear infinite;
+}
+
+@keyframes orbitPlanet {
+    from { transform: rotate(0deg) translateX(130px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(130px) rotate(-360deg); }
+}
+
+/* GENERAL */
+section {
+    padding: 100px 5%;
+}
+
+.container {
+    max-width: var(--max);
+    margin: auto;
+}
+
+.section-label {
+    color: var(--accent2);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.section-title {
+    font-size: clamp(34px,5vw,58px);
+    line-height: 1.05;
+    margin-bottom: 18px;
+}
+
+.section-intro {
+    max-width: 760px;
+    color: var(--muted);
+    margin-bottom: 45px;
+    font-size: 17px;
+}
+
+/* CARDS */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.card {
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.055),
+        rgba(255,255,255,.018)
+    );
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 28px;
+    backdrop-filter: blur(12px);
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-7px);
+    border-color: rgba(120,150,255,.4);
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+
+.card-icon {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.card p {
+    color: var(--muted);
+}
+
+.tag {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(100,120,255,.12);
+    color: #aeb8ff;
+    font-size: 12px;
+}
+
+/* SOLAR SYSTEM */
+.solar-system {
+    position: relative;
+    height: 540px;
+    max-width: 900px;
+    margin: 50px auto;
+    display: grid;
+    place-items: center;
+}
+
+.sun {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,#fff5a6,#ffc52e,#ff7b00);
+    box-shadow:
+        0 0 45px #ffbd35,
+        0 0 100px rgba(255,140,0,.35);
+    display: grid;
+    place-items: center;
+    font-size: 45px;
+    z-index: 4;
+}
+
+.planet-orbit {
+    position: absolute;
+    border: 1px solid rgba(150,170,255,.15);
+    border-radius: 50%;
+    animation: orbit 18s linear infinite;
+}
+
+.planet-orbit span {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+}
+
+.o1 { width:160px;height:160px; animation-duration:8s; }
+.o2 { width:220px;height:220px; animation-duration:11s; }
+.o3 { width:290px;height:290px; animation-duration:14s; }
+.o4 { width:360px;height:360px; animation-duration:18s; }
+.o5 { width:440px;height:440px; animation-duration:24s; }
+.o6 { width:530px;height:530px; animation-duration:30s; }
+.o7 { width:620px;height:620px; animation-duration:36s; }
+.o8 { width:710px;height:710px; animation-duration:42s; }
+
+.o1 span { top:-7px; left:50%; width:14px;height:14px;background:#aaa; }
+.o2 span { top:-10px; left:50%; width:20px;height:20px;background:#d5a65a; }
+.o3 span { top:-10px; left:50%; width:22px;height:22px;background:#5e9fff; }
+.o4 span { top:-9px; left:50%; width:18px;height:18px;background:#d65c45; }
+.o5 span { top:-17px; left:50%; width:34px;height:34px;background:#dca95d; }
+.o6 span { top:-15px; left:50%; width:30px;height:30px;background:#d6c18b; }
+.o7 span { top:-12px; left:50%; width:25px;height:25px;background:#83d5e8; }
+.o8 span { top:-12px; left:50%; width:25px;height:25px;background:#4278dc; }
+
+@keyframes orbit {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg); }
+}
+
+/* PLANET CARDS */
+.planet-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.planet {
+    min-height:250px;
+    cursor:pointer;
+    overflow:hidden;
+}
+
+.planet-symbol {
+    font-size:65px;
+    margin-bottom:10px;
+}
+
+.planet small {
+    color:var(--accent2);
+}
+
+/* INFO TABLE */
+.info-table {
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    border-radius:18px;
+}
+
+.info-table th,
+.info-table td {
+    padding:15px;
+    border-bottom:1px solid var(--line);
+    text-align:left;
+}
+
+.info-table th {
+    color:#aeb8ff;
+    background:rgba(100,120,255,.08);
+}
+
+.info-table td {
+    color:var(--muted);
+}
+
+/* FEATURE */
+.feature {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+    align-items:center;
+}
+
+.feature-box {
+    min-height:380px;
+    display:grid;
+    place-items:center;
+    border-radius:30px;
+    border:1px solid var(--line);
+    background:
+        radial-gradient(circle,#17265d,transparent 55%),
+        #060918;
+    overflow:hidden;
+}
+
+.blackhole {
+    width:190px;
+    height:190px;
+    border-radius:50%;
+    background:#000;
+    box-shadow:
+        0 0 20px 10px #6c3cff,
+        0 0 70px 25px rgba(255,77,189,.3);
+    position:relative;
+}
+
+.blackhole::before {
+    content:"";
+    position:absolute;
+    inset:-35px;
+    border:14px solid transparent;
+    border-top-color:#ff7cd8;
+    border-bottom-color:#755cff;
+    border-radius:50%;
+    transform:rotate(-20deg);
+}
+
+/* TIMELINE */
+.timeline {
+    max-width:900px;
+    margin:auto;
+    position:relative;
+}
+
+.timeline::before {
+    content:"";
+    position:absolute;
+    left:20px;
+    top:0;
+    bottom:0;
+    width:2px;
+    background:linear-gradient(var(--accent),var(--accent2));
+}
+
+.timeline-item {
+    position:relative;
+    padding-left:65px;
+    margin-bottom:35px;
+}
+
+.timeline-dot {
+    position:absolute;
+    left:11px;
+    top:5px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:#67dfff;
+    box-shadow:0 0 20px #67dfff;
+}
+
+.timeline-item h3 {
+    color:#aeb8ff;
+    font-size:21px;
+}
+
+/* FACTS */
+.fact-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.fact {
+    text-align:center;
+    padding:28px 15px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:18px;
+}
+
+.fact strong {
+    display:block;
+    font-size:40px;
+    color:var(--accent2);
+}
+
+/* SEARCH */
+.search-wrap {
+    max-width:700px;
+    margin:0 auto 40px;
+}
+
+.search {
+    width:100%;
+    padding:17px 20px;
+    border-radius:15px;
+    border:1px solid var(--line);
+    background:var(--panel);
+    color:var(--text);
+    outline:none;
+    font-size:16px;
+}
+
+/* FAQ */
+.faq {
+    max-width:850px;
+    margin:auto;
+}
+
+details {
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:15px;
+    margin-bottom:12px;
+    padding:18px 20px;
+}
+
+summary {
+    cursor:pointer;
+    font-weight:800;
+}
+
+details p {
+    color:var(--muted);
+    padding-top:12px;
+}
+
+/* GLOSSARY */
+.glossary {
+    columns:2;
+}
+
+.glossary div {
+    break-inside:avoid;
+    padding:13px 0;
+    border-bottom:1px solid var(--line);
+}
+
+.glossary b {
+    color:#aeb8ff;
+}
+
+/* FOOTER */
+footer {
+    padding:70px 5% 30px;
+    border-top:1px solid var(--line);
+    background:rgba(0,0,0,.25);
+}
+
+.footer-grid {
+    max-width:var(--max);
+    margin:auto;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:40px;
+}
+
+footer h3 {
+    margin-bottom:15px;
+}
+
+footer p,
+footer li {
+    color:var(--muted);
+}
+
+footer ul {
+    list-style:none;
+}
+
+footer li {
+    margin:7px 0;
+}
+
+.copyright {
+    max-width:var(--max);
+    margin:45px auto 0;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* BACK TO TOP */
+#top {
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--panel);
+    color:var(--text);
+    cursor:pointer;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+    z-index:999;
+}
+
+#top.show {
+    opacity:1;
+    pointer-events:auto;
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px) {
+    .planet-grid { grid-template-columns:repeat(2,1fr); }
+    .grid { grid-template-columns:repeat(2,1fr); }
+    .fact-grid { grid-template-columns:repeat(2,1fr); }
+    .feature { grid-template-columns:1fr; }
+    .orbit { display:none; }
+}
+
+@media(max-width:700px) {
+    nav ul {
+        position:absolute;
+        top:72px;
+        left:0;
+        right:0;
+        background:rgba(3,5,15,.97);
+        display:none;
+        flex-direction:column;
+        padding:25px;
+    }
+
+    nav ul.open {
+        display:flex;
+    }
+
+    .menu-btn {
+        display:block;
+    }
+
+    .grid,
+    .planet-grid,
+    .fact-grid {
+        grid-template-columns:1fr;
+    }
+
+    .solar-system {
+        transform:scale(.55);
+        margin:-40px auto;
+        height:450px;
+    }
+
+    .glossary {
+        columns:1;
+    }
+
+    .footer-grid {
+        grid-template-columns:1fr;
+    }
+
+    section {
+        padding:75px 5%;
+    }
+
+    .hero h1 {
+        letter-spacing:-2px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+<div id="stars2"></div>
+
+<!-- ======================================================
+     NAVIGATION
+====================================================== -->
+<nav>
+    <div class="logo">
+        <span>🚀</span> COSMOS
+    </div>
+
+    <ul id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#universe">Universe</a></li>
+        <li><a href="#solar">Solar System</a></li>
+        <li><a href="#planets">Planets</a></li>
+        <li><a href="#missions">Missions</a></li>
+        <li><a href="#facts">Facts</a></li>
+    </ul>
+
+    <div class="nav-buttons">
+        <button class="icon-btn" id="themeBtn" title="Theme">☾</button>
+        <button class="icon-btn menu-btn" id="menuBtn">☰</button>
+    </div>
+</nav>
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+<header class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            ✦ THE ULTIMATE SPACE EXPLORER
+        </div>
+
+        <h1>Explore<br>the Cosmos</h1>
+
+        <p>
+            Space is vast, ancient and full of unanswered questions.
+            Explore our Solar System, stars, galaxies, black holes,
+            space missions and the future of human exploration.
+        </p>
+
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="#solar">
+                Explore Solar System →
+            </a>
+
+            <a class="btn btn-secondary" href="#universe">
+                Discover Universe
+            </a>
+        </div>
+
+    </div>
+
+    <div class="orbit"></div>
+
+</header>
+
+<!-- ======================================================
+     UNIVERSE
+====================================================== -->
+<section id="universe">
+
+<div class="container">
+
+    <div class="section-label">01 / The Big Picture</div>
+
+    <h2 class="section-title">
+        What is the Universe?
+    </h2>
+
+    <p class="section-intro">
+        The universe contains everything that exists: space, time,
+        matter, energy, stars, planets, galaxies and the physical
+        laws that govern them. Scientists estimate that the observable
+        universe contains hundreds of billions of galaxies.
+    </p>
+
+    <div class="grid">
+
+        <article class="card">
+            <div class="card-icon">🌌</div>
+            <h3>Galaxies</h3>
+            <p>
+                Galaxies are enormous systems containing stars, gas,
+                dust, planets and dark matter. The Milky Way is the
+                galaxy that contains our Solar System.
+            </p>
+            <span class="tag">COSMIC STRUCTURES</span>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">⭐</div>
+            <h3>Stars</h3>
+            <p>
+                Stars are enormous spheres of hot plasma. Their energy
+                is produced primarily through nuclear fusion in their
+                cores.
+            </p>
+            <span class="tag">STELLAR SCIENCE</span>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">☁️</div>
+            <h3>Nebulae</h3>
+            <p>
+                Nebulae are giant clouds of gas and dust. Some are
+                regions where new stars form, while others are created
+                by dying stars.
+            </p>
+            <span class="tag">STAR FORMATION</span>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🕳️</div>
+            <h3>Black Holes</h3>
+            <p>
+                A black hole is a region of spacetime with gravity
+                strong enough that nothing that crosses its event
+                horizon can escape.
+            </p>
+            <span class="tag">EXTREME GRAVITY</span>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🌑</div>
+            <h3>Dark Matter</h3>
+            <p>
+                Dark matter does not appear to emit or absorb light,
+                but its gravitational influence can be observed in
+                galaxies and larger cosmic structures.
+            </p>
+            <span class="tag">UNSEEN MATTER</span>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">⚡</div>
+            <h3>Dark Energy</h3>
+            <p>
+                Dark energy is the name given to the unknown component
+                associated with the accelerated expansion of the
+                universe.
+            </p>
+            <span class="tag">COSMIC EXPANSION</span>
+        </article>
+
+    </div>
+</div>
+</section>
+
+<!-- ======================================================
+     BIG BANG
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="feature">
+
+        <div>
+
+            <div class="section-label">Origins</div>
+
+            <h2 class="section-title">
+                The Big Bang
+            </h2>
+
+            <p class="section-intro">
+                The Big Bang model describes the early universe as an
+                extremely hot, dense state that expanded and cooled
+                over time. It was not simply an explosion into empty
+                space; rather, space itself has been expanding.
+            </p>
+
+            <div class="grid">
+
+                <article class="card">
+                    <h3>13.8 Billion Years</h3>
+                    <p>
+                        Current measurements place the age of the
+                        universe at roughly 13.8 billion years.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>Cosmic Expansion</h3>
+                    <p>
+                        Distant galaxies generally appear to be moving
+                        away from one another as space expands.
+                    </p>
+                </article>
+
+            </div>
+
+        </div>
+
+        <div class="feature-box">
+            <div style="font-size:110px;">🌌</div>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     SOLAR SYSTEM
+====================================================== -->
+<section id="solar">
+
+<div class="container">
+
+    <div class="section-label">02 / Our Neighborhood</div>
+
+    <h2 class="section-title">
+        The Solar System
+    </h2>
+
+    <p class="section-intro">
+        Our Solar System is centered on the Sun. Eight planets,
+        numerous moons, dwarf planets, asteroids and comets orbit
+        the Sun under its gravitational influence.
+    </p>
+
+    <div class="solar-system">
+
+        <div class="sun">☀️</div>
+
+        <div class="planet-orbit o1"><span></span></div>
+        <div class="planet-orbit o2"><span></span></div>
+        <div class="planet-orbit o3"><span></span></div>
+        <div class="planet-orbit o4"><span></span></div>
+        <div class="planet-orbit o5"><span></span></div>
+        <div class="planet-orbit o6"><span></span></div>
+        <div class="planet-orbit o7"><span></span></div>
+        <div class="planet-orbit o8"><span></span></div>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     PLANETS
+====================================================== -->
+<section id="planets">
+
+<div class="container">
+
+    <div class="section-label">03 / Worlds</div>
+
+    <h2 class="section-title">
+        The Eight Planets
+    </h2>
+
+    <p class="section-intro">
+        The planets are divided into rocky terrestrial planets
+        and giant planets. Each world has its own atmosphere,
+        geology, temperature and history.
+    </p>
+
+    <div class="planet-grid">
+
+        <article class="card planet">
+            <div class="planet-symbol">☿️</div>
+            <small>PLANET 01</small>
+            <h3>Mercury</h3>
+            <p>
+                The smallest planet and the closest planet to the Sun.
+                Mercury has a heavily cratered surface and almost no
+                substantial atmosphere.
+            </p>
+        </article>
+
+        <article class="card planet">
+            <div class="planet-symbol">♀️</div>
+            <small>PLANET 02</small>
+            <h3>Venus</h3>
+            <p>
+                Venus is similar in size to Earth but has a dense
+                carbon-dioxide atmosphere and an intense greenhouse
+                effect that makes its surface extremely hot.
+            </p>
+        </article>
+
+        <article class="card planet">
+            <div class="planet-symbol">🌍</div>
+            <small>PLANET 03</small>
+            <h3>Earth</h3>
+            <p>
+                Earth is a rocky planet with abundant liquid surface
+                water and the only world currently known to support
+                life.
+            </p>
+        </article>
+
+        <article class="card planet">
+            <div class="planet-symbol">🔴</div>
+            <small>PLANET 04</small>
+            <h3>Mars</h3>
+            <p>
+                Mars is known as the Red Planet because iron minerals
+                in its surface materials have oxidized. It contains
+                enormous volcanoes and canyons.
+            </p>
+        </article>
+
+        <article class="card planet">
+            <div class="planet-symbol">🟠</div>
+            <small>PLANET 05</small>
+            <h3>Jupiter</h3>
+            <p>
+                Jupiter is the largest planet in the Solar System.
+                It is a gas giant with powerful storms, including
+                the famous Great Red Spot.
+            </p>
+        </article>
+
+        <article class="card planet">
+            <div class="planet-symbol">🪐</div>
+            <small>PLANET 06</small>
+            <h3>Saturn</h3>
+            <p>
+                Saturn is a gas giant surrounded by an enormous,
+                bright ring system made primarily of particles of
+                ice and rock.
+            </p>
+        </article>
+
+        <article class="card planet">
+            <div class="planet-symbol">🔵</div>
+            <small>PLANET 07</small>
+            <h3>Uranus</h3>
+            <p>
+                Uranus is an ice giant with a blue-green appearance.
+                Its axis is tilted dramatically, causing unusual
+                seasonal patterns.
+            </p>
+        </article>
+
+        <article class="card planet">
+            <div class="planet-symbol">🔷</div>
+            <small>PLANET 08</small>
+            <h3>Neptune</h3>
+            <p>
+                Neptune is the farthest recognized planet from the
+                Sun. It is an ice giant with some of the fastest
+                planetary winds known.
+            </p>
+        </article>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     PLANET DATA
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="section-label">Quick Reference</div>
+
+    <h2 class="section-title">
+        Planet Comparison
+    </h2>
+
+    <div style="overflow-x:auto">
+
+        <table class="info-table">
+
+            <thead>
+                <tr>
+                    <th>Planet</th>
+                    <th>Type</th>
+                    <th>Day Length</th>
+                    <th>Year Length</th>
+                    <th>Moons</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Mercury</td>
+                    <td>Rocky</td>
+                    <td>≈ 59 Earth days</td>
+                    <td>88 Earth days</td>
+                    <td>0</td>
+                </tr>
+
+                <tr>
+                    <td>Venus</td>
+                    <td>Rocky</td>
+                    <td>≈ 243 Earth days</td>
+                    <td>225 Earth days</td>
+                    <td>0</td>
+                </tr>
+
+                <tr>
+                    <td>Earth</td>
+                    <td>Rocky</td>
+                    <td>≈ 24 hours</td>
+                    <td>365 days</td>
+                    <td>1</td>
+                </tr>
+
+                <tr>
+                    <td>Mars</td>
+                    <td>Rocky</td>
+                    <td>≈ 24.6 hours</td>
+                    <td>687 days</td>
+                    <td>2</td>
+                </tr>
+
+                <tr>
+                    <td>Jupiter</td>
+                    <td>Gas giant</td>
+                    <td>≈ 9.9 hours</td>
+                    <td>≈ 11.86 years</td>
+                    <td>Many</td>
+                </tr>
+
+                <tr>
+                    <td>Saturn</td>
+                    <td>Gas giant</td>
+                    <td>≈ 10.7 hours</td>
+                    <td>≈ 29.5 years</td>
+                    <td>Many</td>
+                </tr>
+
+                <tr>
+                    <td>Uranus</td>
+                    <td>Ice giant</td>
+                    <td>≈ 17.2 hours</td>
+                    <td>≈ 84 years</td>
+                    <td>Many</td>
+                </tr>
+
+                <tr>
+                    <td>Neptune</td>
+                    <td>Ice giant</td>
+                    <td>≈ 16 hours</td>
+                    <td>≈ 165 years</td>
+                    <td>Many</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     SUN & MOON
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="section-label">Stars & Satellites</div>
+
+    <h2 class="section-title">
+        The Sun & The Moon
+    </h2>
+
+    <div class="grid">
+
+        <article class="card">
+            <div class="card-icon">☀️</div>
+            <h3>The Sun</h3>
+            <p>
+                The Sun is a star at the center of our Solar System.
+                Its gravity keeps the planets in orbit, while its
+                energy drives Earth's climate and nearly all surface
+                ecosystems.
+            </p>
+            <br>
+            <p>
+                The Sun is primarily composed of hydrogen and helium.
+                Nuclear fusion in its core converts hydrogen into
+                helium and releases enormous amounts of energy.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🌙</div>
+            <h3>The Moon</h3>
+            <p>
+                Earth's Moon is our planet's natural satellite.
+                Its gravitational interaction with Earth contributes
+                significantly to ocean tides.
+            </p>
+            <br>
+            <p>
+                The Moon is tidally locked to Earth, meaning the same
+                side generally faces our planet as it orbits.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🌘</div>
+            <h3>Phases of the Moon</h3>
+            <p>
+                The Moon appears to change shape during its monthly
+                cycle because we see different portions of its
+                sunlit half as it moves around Earth.
+            </p>
+        </article>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     BLACK HOLES
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="feature">
+
+        <div class="feature-box">
+            <div class="blackhole"></div>
+        </div>
+
+        <div>
+
+            <div class="section-label">Extreme Physics</div>
+
+            <h2 class="section-title">
+                Black Holes
+            </h2>
+
+            <p class="section-intro">
+                Black holes are among the most extreme objects in
+                the universe. They can form when massive stars collapse,
+                and supermassive black holes can exist at the centers
+                of galaxies.
+            </p>
+
+            <div class="grid">
+
+                <article class="card">
+                    <h3>Event Horizon</h3>
+                    <p>
+                        The boundary beyond which escape from the
+                        black hole is impossible.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>Accretion Disk</h3>
+                    <p>
+                        Hot material orbiting a black hole can form
+                        a bright disk as it falls inward.
+                    </p>
+                </article>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     STARS
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="section-label">Stellar Evolution</div>
+
+    <h2 class="section-title">
+        The Life of a Star
+    </h2>
+
+    <p class="section-intro">
+        Stars are born from clouds of gas and dust. Their eventual
+        fate depends strongly on their mass.
+    </p>
+
+    <div class="grid">
+
+        <article class="card">
+            <div class="card-icon">☁️</div>
+            <h3>1. Stellar Nursery</h3>
+            <p>
+                Gravity causes dense regions within molecular clouds
+                to collapse and form young stars.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">⭐</div>
+            <h3>2. Main Sequence</h3>
+            <p>
+                A star spends much of its life converting hydrogen
+                into helium through nuclear fusion.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🔴</div>
+            <h3>3. Giant Phase</h3>
+            <p>
+                When core hydrogen is depleted, many stars expand
+                dramatically and become giants.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">💥</div>
+            <h3>4. Supernova</h3>
+            <p>
+                Some massive stars end their lives in powerful
+                explosions that can create and distribute heavy
+                elements.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">⚪</div>
+            <h3>5. White Dwarf</h3>
+            <p>
+                Lower-mass stars can leave behind extremely dense
+                stellar remnants called white dwarfs.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🕳️</div>
+            <h3>6. Black Hole</h3>
+            <p>
+                The cores of sufficiently massive stars can collapse
+                into black holes.
+            </p>
+        </article>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     SPACE OBJECTS
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="section-label">Cosmic Objects</div>
+
+    <h2 class="section-title">
+        Asteroids, Comets & Meteors
+    </h2>
+
+    <div class="grid">
+
+        <article class="card">
+            <div class="card-icon">☄️</div>
+            <h3>Comets</h3>
+            <p>
+                Comets are icy bodies that can develop glowing comas
+                and tails when they approach the Sun.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🪨</div>
+            <h3>Asteroids</h3>
+            <p>
+                Asteroids are rocky or metallic objects that orbit
+                the Sun. Many are concentrated in the main asteroid
+                belt between Mars and Jupiter.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🔥</div>
+            <h3>Meteors</h3>
+            <p>
+                A meteoroid becomes a meteor when it enters an
+                atmosphere and produces a visible streak of light.
+            </p>
+        </article>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     SPACE TECHNOLOGY
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="section-label">Human Technology</div>
+
+    <h2 class="section-title">
+        How Humans Explore Space
+    </h2>
+
+    <div class="grid">
+
+        <article class="card">
+            <div class="card-icon">🚀</div>
+            <h3>Rockets</h3>
+            <p>
+                Rockets generate thrust by accelerating mass in the
+                opposite direction. They carry spacecraft beyond
+                Earth's atmosphere and into orbit.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🛰️</div>
+            <h3>Satellites</h3>
+            <p>
+                Artificial satellites support communication,
+                navigation, weather observation, Earth science
+                and astronomy.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🔭</div>
+            <h3>Space Telescopes</h3>
+            <p>
+                Telescopes in space can observe wavelengths that
+                are blocked or distorted by Earth's atmosphere.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🤖</div>
+            <h3>Robotic Probes</h3>
+            <p>
+                Robotic spacecraft explore places that are too
+                distant, cold, hot or dangerous for humans.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">👨‍🚀</div>
+            <h3>Spacesuits</h3>
+            <p>
+                Spacesuits provide oxygen, pressure, temperature
+                control and protection from the harsh space environment.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🏠</div>
+            <h3>Space Stations</h3>
+            <p>
+                Space stations provide laboratories where astronauts
+                can conduct long-duration experiments in microgravity.
+            </p>
+        </article>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     ASTRONAUTS
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="section-label">Human Spaceflight</div>
+
+    <h2 class="section-title">
+        Life in Space
+    </h2>
+
+    <p class="section-intro">
+        Living in space requires astronauts to adapt to microgravity,
+        radiation, isolation and limited resources.
+    </p>
+
+    <div class="grid">
+
+        <article class="card">
+            <h3>🛌 Sleeping</h3>
+            <p>
+                Astronauts use sleeping bags attached to surfaces so
+                they do not float around the spacecraft while sleeping.
+            </p>
+        </article>
+
+        <article class="card">
+            <h3>🍽️ Food</h3>
+            <p>
+                Space food is specially prepared to remain safe,
+                compact and practical in microgravity.
+            </p>
+        </article>
+
+        <article class="card">
+            <h3>💪 Exercise</h3>
+            <p>
+                Regular exercise is essential during long missions
+                because microgravity can cause loss of muscle and bone.
+            </p>
+        </article>
+
+        <article class="card">
+            <h3>🧪 Science</h3>
+            <p>
+                Astronauts perform experiments in biology, physics,
+                medicine, materials science and Earth observation.
+            </p>
+        </article>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     MISSIONS TIMELINE
+====================================================== -->
+<section id="missions">
+
+<div class="container">
+
+    <div class="section-label">04 / Exploration</div>
+
+    <h2 class="section-title">
+        Historic Space Milestones
+    </h2>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h3>1957 — Sputnik 1</h3>
+            <p>
+                The Soviet Union launched Sputnik 1, the first
+                artificial satellite to orbit Earth.
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h3>1961 — First Human in Orbit</h3>
+            <p>
+                Yuri Gagarin became the first human to travel into
+                space and orbit Earth.
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h3>1969 — Apollo 11</h3>
+            <p>
+                Apollo 11 carried humans to the lunar surface,
+                marking the first crewed Moon landing.
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h3>1990 — Hubble</h3>
+            <p>
+                The Hubble Space Telescope began observing the
+                universe from orbit above Earth's atmosphere.
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h3>1998 — International Space Station</h3>
+            <p>
+                Construction of the International Space Station
+                began through a large international partnership.
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h3>2021 — James Webb Space Telescope</h3>
+            <p>
+                The James Webb Space Telescope launched to study
+                the universe primarily through infrared observations.
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h3>Future — Human Deep-Space Exploration</h3>
+            <p>
+                Future missions may expand human exploration of the
+                Moon, Mars and other destinations.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     SEARCHABLE SPACE TOPICS
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="section-label">Explore</div>
+
+    <h2 class="section-title">
+        Space Knowledge Search
+    </h2>
+
+    <p class="section-intro">
+        Search the topics below to quickly find information.
+    </p>
+
+    <div class="search-wrap">
+        <input
+            class="search"
+            id="spaceSearch"
+            type="search"
+            placeholder="Search planets, stars, Mars, black holes..."
+        >
+    </div>
+
+    <div class="grid" id="searchCards">
+
+        <article class="card searchable">
+            <h3>🌍 Earth</h3>
+            <p>
+                Our home world, with oceans, a nitrogen-rich atmosphere,
+                active geology and known life.
+            </p>
+        </article>
+
+        <article class="card searchable">
+            <h3>🔴 Mars</h3>
+            <p>
+                A cold rocky world with polar ice, ancient river
+                features, volcanoes and dust storms.
+            </p>
+        </article>
+
+        <article class="card searchable">
+            <h3>🪐 Saturn</h3>
+            <p>
+                A gas giant famous for its rings and large collection
+                of moons.
+            </p>
+        </article>
+
+        <article class="card searchable">
+            <h3>⭐ Stars</h3>
+            <p>
+                Stars shine because nuclear fusion releases energy
+                from their hot interiors.
+            </p>
+        </article>
+
+        <article class="card searchable">
+            <h3>🕳️ Black Holes</h3>
+            <p>
+                Extreme gravitational objects with event horizons.
+            </p>
+        </article>
+
+        <article class="card searchable">
+            <h3>🌌 Milky Way</h3>
+            <p>
+                The galaxy containing our Solar System.
+            </p>
+        </article>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     AMAZING FACTS
+====================================================== -->
+<section id="facts">
+
+<div class="container">
+
+    <div class="section-label">05 / Did You Know?</div>
+
+    <h2 class="section-title">
+        Amazing Space Facts
+    </h2>
+
+    <div class="fact-grid">
+
+        <div class="fact">
+            <strong>8</strong>
+            Recognized planets orbit the Sun.
+        </div>
+
+        <div class="fact">
+            <strong>1</strong>
+            Star is at the center of our Solar System.
+        </div>
+
+        <div class="fact">
+            <strong>1</strong>
+            Natural satellite orbits Earth.
+        </div>
+
+        <div class="fact">
+            <strong>13.8B</strong>
+            Approximate age of the universe in years.
+        </div>
+
+        <div class="fact">
+            <strong>∞</strong>
+            Space contains an enormous number of objects.
+        </div>
+
+        <div class="fact">
+            <strong>🌡️</strong>
+            Space has extreme temperature environments.
+        </div>
+
+        <div class="fact">
+            <strong>🌌</strong>
+            The universe is expanding.
+        </div>
+
+        <div class="fact">
+            <strong>🚀</strong>
+            Humans have traveled beyond low Earth orbit.
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     SEARCH FOR LIFE
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="section-label">Are We Alone?</div>
+
+    <h2 class="section-title">
+        The Search for Life
+    </h2>
+
+    <p class="section-intro">
+        Scientists search for signs of life beyond Earth by studying
+        planets, moons, atmospheres and chemical environments.
+        So far, Earth remains the only world where life is confirmed.
+    </p>
+
+    <div class="grid">
+
+        <article class="card">
+            <div class="card-icon">🔴</div>
+            <h3>Mars</h3>
+            <p>
+                Mars preserves evidence that liquid water existed on
+                its surface in the distant past, making it a major
+                target for astrobiology.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🧊</div>
+            <h3>Europa</h3>
+            <p>
+                Jupiter's moon Europa has an icy exterior and strong
+                evidence for a subsurface ocean.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🌊</div>
+            <h3>Enceladus</h3>
+            <p>
+                Saturn's small moon Enceladus ejects plumes of material
+                from beneath its icy surface.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-icon">🪐</div>
+            <h3>Exoplanets</h3>
+            <p>
+                Thousands of planets have been confirmed around stars
+                beyond our Sun. Some orbit within potentially interesting
+                temperature ranges.
+            </p>
+        </article>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     GLOSSARY
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="section-label">Space Dictionary</div>
+
+    <h2 class="section-title">
+        Space Glossary
+    </h2>
+
+    <div class="glossary">
+
+        <div><b>Asteroid:</b> Rocky or metallic body orbiting the Sun.</div>
+
+        <div><b>Atmosphere:</b> A layer of gases surrounding a world.</div>
+
+        <div><b>Black Hole:</b> A region where gravity prevents escape beyond its event horizon.</div>
+
+        <div><b>Comet:</b> An icy Solar System body that can develop a coma and tail.</div>
+
+        <div><b>Exoplanet:</b> A planet orbiting a star other than the Sun.</div>
+
+        <div><b>Galaxy:</b> A huge gravitationally bound collection of stars and other matter.</div>
+
+        <div><b>Gravity:</b> The attractive interaction associated with mass and energy.</div>
+
+        <div><b>Light-Year:</b> The distance light travels in one year.</div>
+
+        <div><b>Meteor:</b> A visible streak produced when a meteoroid enters an atmosphere.</div>
+
+        <div><b>Meteorite:</b> A piece of space rock that survives atmospheric entry and reaches the ground.</div>
+
+        <div><b>Nebula:</b> A large cloud of gas and dust in space.</div>
+
+        <div><b>Orbit:</b> The curved path of an object under gravity.</div>
+
+        <div><b>Planet:</b> A large body orbiting a star that meets the accepted planetary criteria.</div>
+
+        <div><b>Satellite:</b> An object that orbits another object; it may be natural or artificial.</div>
+
+        <div><b>Solar System:</b> The Sun and the objects gravitationally associated with it.</div>
+
+        <div><b>Supernova:</b> A powerful stellar explosion or related catastrophic stellar event.</div>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     FAQ
+====================================================== -->
+<section>
+
+<div class="container">
+
+    <div class="section-label">Questions</div>
+
+    <h2 class="section-title">
+        Frequently Asked Questions
+    </h2>
+
+    <div class="faq">
+
+        <details>
+            <summary>How many planets are in our Solar System?</summary>
+            <p>
+                There are eight recognized planets: Mercury, Venus,
+                Earth, Mars, Jupiter, Saturn, Uranus and Neptune.
+            </p>
+        </details>
+
+        <details>
+            <summary>Is Pluto a planet?</summary>
+            <p>
+                Pluto is classified as a dwarf planet. It is still
+                an important object in the outer Solar System.
+            </p>
+        </details>
+
+        <details>
+            <summary>Can humans live in space?</summary>
+            <p>
+                Humans can live in space with specialized spacecraft
+                and life-support systems, but the environment is not
+                naturally suitable for human survival.
+            </p>
+        </details>
+
+        <details>
+            <summary>Can we travel to another galaxy?</summary>
+            <p>
+                With current technology, intergalactic travel is far
+                beyond our practical capabilities. The distances are
+                extraordinarily large.
+            </p>
+        </details>
+
+        <details>
+            <summary>Is there life outside Earth?</summary>
+            <p>
+                No extraterrestrial life has been scientifically
+                confirmed so far. The search remains an active area
+                of scientific research.
+            </p>
+        </details>
+
+        <details>
+            <summary>Why is space dark?</summary>
+            <p>
+                Space itself does not glow like an atmosphere. Light
+                travels through it, but most directions do not contain
+                enough visible light reaching our eyes to appear bright.
+            </p>
+        </details>
+
+        <details>
+            <summary>What is a light-year?</summary>
+            <p>
+                A light-year is a unit of distance: the distance
+                light travels through vacuum in one year.
+            </p>
+        </details>
+
+    </div>
+
+</div>
+</section>
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+<footer>
+
+    <div class="footer-grid">
+
+        <div>
+            <div class="logo">
+                <span>🚀</span> COSMOS
+            </div>
+
+            <p style="margin-top:15px">
+                A digital journey through planets, stars, galaxies,
+                black holes and humanity's exploration of the universe.
+            </p>
+        </div>
+
+        <div>
+            <h3>Explore</h3>
+
+            <ul>
+                <li><a href="#universe">Universe</a></li>
+                <li><a href="#solar">Solar System</a></li>
+                <li><a href="#planets">Planets</a></li>
+                <li><a href="#missions">Missions</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h3>Learn</h3>
+
+            <ul>
+                <li><a href="#facts">Space Facts</a></li>
+                <li><a href="#universe">Galaxies</a></li>
+                <li><a href="#universe">Black Holes</a></li>
+                <li><a href="#missions">Space History</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 Cosmos Explorer · Made for curious minds 🚀
+    </div>
+
+</footer>
+
+<button id="top" title="Back to top">↑</button>
+
+<script>
+/* =========================================================
+   COSMOS JAVASCRIPT
+========================================================= */
+
+/* MOBILE MENU */
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+});
+
+document.querySelectorAll("#navLinks a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+    });
+});
+
+
+/* THEME */
+const themeBtn = document.getElementById("themeBtn");
+
+themeBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("light");
+
+    if (document.body.classList.contains("light")) {
+        themeBtn.textContent = "☀";
+    } else {
+        themeBtn.textContent = "☾";
+    }
+
+});
+
+
+/* BACK TO TOP */
+const topButton = document.getElementById("top");
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 500) {
+        topButton.classList.add("show");
+    } else {
+        topButton.classList.remove("show");
+    }
+
+});
+
+topButton.addEventListener("click", () => {
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+});
+
+
+/* SEARCH */
+const searchInput = document.getElementById("spaceSearch");
+const cards = document.querySelectorAll(".searchable");
+
+searchInput.addEventListener("input", () => {
+
+    const query = searchInput.value.toLowerCase().trim();
+
+    cards.forEach(card => {
+
+        const text = card.textContent.toLowerCase();
+
+        if (text.includes(query)) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+});
+
+
+/* PLANET CARD CLICK */
+document.querySelectorAll(".planet").forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        const name = card.querySelector("h3").textContent;
+
+        alert(
+            name +
+            " — Scroll through the Cosmos website to learn more about this world."
+        );
+
+    });
+
+});
+
+
+/* SIMPLE STAR PARALLAX */
+window.addEventListener("mousemove", event => {
+
+    const x = (event.clientX / window.innerWidth - .5) * 10;
+    const y = (event.clientY / window.innerHeight - .5) * 10;
+
+    document.getElementById("stars").style.transform =
+        `translate(${x}px, ${y}px)`;
+
+});
+
+
+/* KEYBOARD SHORTCUT */
+document.addEventListener("keydown", event => {
+
+    if (event.key === "/" && document.activeElement !== searchInput) {
+
+        event.preventDefault();
+        searchInput.focus();
+
+    }
+
+});
+
+
+/* YEAR */
+const copyright = document.querySelector(".copyright");
+
+copyright.innerHTML =
+    copyright.innerHTML.replace(
+        "2026",
+        new Date().getFullYear()
+    );
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ANSA — Dark Matter</title>
